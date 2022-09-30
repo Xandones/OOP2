@@ -1,5 +1,7 @@
 package com.alexandrohlopes.oopbasics2
 
+import kotlin.math.floor
+
 // Super Class, Parent Class or Base Class. If it's not opened it can't be inherited by Child Classes
 open class Car(override val maxSpeed: Double, val name : String, val brand : String) : Drivable {
     open var range : Double = 0.0 // You can only alter a property if it's opened
@@ -102,4 +104,61 @@ fun main() {
 
     human.breath()
     elephant.breath()
+
+    println("\nThe following part is related to Lists")
+    val stringList : List<String> = listOf("Alexandro", "Jodelle", "Lamissah", "Raven")
+    val mixedTypeList : List<Any> = listOf(99, "Xucreisson", 3.1245667, true)
+
+    println("Navigating through the list - common way")
+    for (value in mixedTypeList) {
+        if (value is Int) {
+            println("Integer: $value")
+        }
+        else if (value is Double) {
+            println("Double: $value with Floor value of ${floor(value)}")
+        }
+        else if (value is String) {
+            println("String: '$value' of length ${value.length}")
+        }
+        else {
+            println("Unknown type")
+        }
+    }
+
+    println("\nAlternate way of navigating through the list - using When")
+    for (value in mixedTypeList) {
+        when (value) {
+            is Int -> println("Integer: $value")
+            is Double -> println("Double: $value with Floor value of ${floor(value)}")
+            is String -> println("String: '$value' of length ${value.length}")
+            else -> println("Unknown type")
+        }
+    }
+
+    println("\nSmart Cast")
+    val obj1 : Any = "I love pizza"
+    if (obj1 !is String) {
+        println("$obj1 is not a String")
+    }
+    else {
+        println("Found the String '$obj1' with the length of ${obj1.length}")
+    }
+
+    println("\nUnsafe Explicit Smart Cast")
+    val str1 : String = obj1 as String
+    println("The String '$str1' has a length of ${str1.length}")
+
+    /*
+
+    The following lines will cause an exception - you can't convert integer to string this way
+
+    val obj2 : Any = 1335
+    val  str2 : String = obj2 as String <- This causes the exception
+    println(str2)
+
+     */
+
+    val obj3 : Any = 1335
+    val  str3 : String? = obj3 as? String
+    println(str3)
 }
