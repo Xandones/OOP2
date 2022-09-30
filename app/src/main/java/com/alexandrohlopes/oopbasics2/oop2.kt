@@ -43,7 +43,44 @@ interface Drivable {
     }
 }
 
+// You can create classes from a Abstract Class (Subclasses) but you can't instantiate objects from it.
+abstract class Mammal(private val name : String, private val origin : String, private val weight : Double) { // Concrete (non abstract) Properties
+    // Abstract Property (must be overridden by subclasses)
+    abstract var maxSpeed : Double
+
+    // Abstract Methods (must be implemented by subclasses)
+    abstract fun run()
+    abstract fun breath()
+
+    // Concrete (non abstract) Method
+    fun displayDetails() {
+        println("Name: $name | Origin: $origin | Weight: $weight | Max Speed: $maxSpeed")
+    }
+}
+
+// A Subclass can only inherit from one Class
+class Human(name : String, origin : String, weight : Double, override var maxSpeed : Double) : Mammal(name,origin, weight) {
+    override fun run() {
+        println("Runs on two legs")
+    }
+
+    override fun breath() {
+        println("Breath through mouth or nose")
+    }
+}
+
+class Elephant(name : String, origin : String, weight : Double, override var maxSpeed : Double) : Mammal(name,origin, weight) {
+    override fun run() {
+        println("Runs on four legs")
+    }
+
+    override fun breath() {
+        println("Breath through the trunk")
+    }
+}
+
 fun main() {
+    println("The next 2 variables are related to Interfaces")
     var fusca = Car(180.0,"Fusca", "Volkswagen")
     var teslaS = EletricalCar(200.0,"S-Model", "Tesla",85.0)
 
@@ -55,4 +92,14 @@ fun main() {
     fusca.brake()
     teslaS.drive(510.0)
     teslaS.brake()
+
+    println("\nThe following part is related to Abstract Classes")
+    val human = Human("Jodelle", "Canada",40.0, 25.0)
+    val elephant = Elephant("Giganto", "Africa", 5400.0, 25.0)
+
+    human.run()
+    elephant.run()
+
+    human.breath()
+    elephant.breath()
 }
